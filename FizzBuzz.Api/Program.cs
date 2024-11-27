@@ -8,6 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+// Add cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost4200",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200") 
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 builder.Services.AddControllers(); 
 
 builder.Services.AddTransient<IFizzBuzzService, FizzBuzzService>();
@@ -21,6 +33,9 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+app.UseCors("AllowLocalhost4200");
+
 app.UseRouting();
 app.MapControllers();
 
