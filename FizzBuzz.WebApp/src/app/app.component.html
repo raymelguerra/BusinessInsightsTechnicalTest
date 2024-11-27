@@ -1,20 +1,20 @@
 <div class="container">
   <h1>FizzBuzz Generator</h1>
   <div class="form-group">
-    <label for="randomNumber">Número Inicial (Generado Aleatoriamente)</label>
+    <label for="randomNumber">Start number (randomizer)</label>
     <input id="randomNumber" type="number" [value]="randomNumber" readonly />
-    <button class="generate-btn" (click)="generateRandomNumber()">Generar Nuevo Número</button>
+    <button class="generate-btn" (click)="generateRandomNumber()">Generate new number</button>
   </div>
 
   <div class="form-group">
-    <label for="limit">Límite</label>
-    <input id="limit" type="number" [(ngModel)]="limit" placeholder="Ingresa el límite (ej. 100)" />
+    <label for="limit">Limit</label>
+    <input id="limit" type="number" [(ngModel)]="limit" placeholder="Add the limit (ex. 100)" />
   </div>
 
-  <button class="submit-btn" (click)="sendData()">Enviar</button>
+  <button class="submit-btn" (click)="sendData()">Send</button>
 
   <div *ngIf="result?.length" class="result">
-    <h2>Resultado FizzBuzz:</h2>
+    <h2>Result FizzBuzz:</h2>
     <ul>
       <li *ngFor="let item of result">{{ item }}</li>
     </ul>

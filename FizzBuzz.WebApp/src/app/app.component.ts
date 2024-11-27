@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
@@ -22,7 +22,7 @@ export class AppComponent {
   constructor(private http: HttpClient) {}
 
   getRandomNumber(): number {
-    return Math.floor(Math.random() * 100) + 1; // Número entre 1 y 100
+    return Math.floor(Math.random() * 100) + 1;
   }
 
   generateRandomNumber(): void {
@@ -31,14 +31,17 @@ export class AppComponent {
 
   sendData(): void {
     if (!this.limit || this.limit <= 0) {
-      alert('Por favor, ingresa un límite válido.');
+      alert('Please enter a valid limit.');
       return;
     }
 
-    const payload = { startNumber: this.randomNumber, limit: this.limit };
+    const payload = { Start: this.randomNumber, Limit: this.limit };
     this.http.post<string[]>(`${environment.apiUrl}/FizzBuzz/generate`, payload).subscribe({
       next: (response) => (this.result = response),
-      error: (err) => alert('Ocurrió un error al procesar la solicitud.'),
+      error: (err) => {
+        console.error(err);
+        alert(`An error occurred while processing the request.: ${err.message}`)
+      },
     });
   }
   
